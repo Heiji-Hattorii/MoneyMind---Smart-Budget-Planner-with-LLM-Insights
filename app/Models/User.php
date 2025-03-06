@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Carbon\Carbon;
+
 
 class User extends Authenticatable
 {
@@ -24,13 +26,8 @@ class User extends Authenticatable
         'role',
         'salaire',
         'date_credit',
+        'last_activity'
     ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
@@ -47,7 +44,33 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'date_credit' => 'date',
+            'last_activity' => 'datetime',
+
 
         ];
     }
+    public function categories()
+    {
+        return $this->hasMany(Categorie::class);
+    }
+    public function updateLastActivity()
+{
+    $this->update(['last_activity' => now()]);
 }
+public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Souhait::class);
+    }
+
+    public function goals()
+    {
+        return $this->hasMany(Goal::class);
+    }
+}
+
+

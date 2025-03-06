@@ -20,6 +20,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string('role')->default('utilisateur');
+            $table->timestamp('last_activity')->nullable();
             $table->float('salaire')->nullable();   
             $table->date('date_credit')->nullable();
         });

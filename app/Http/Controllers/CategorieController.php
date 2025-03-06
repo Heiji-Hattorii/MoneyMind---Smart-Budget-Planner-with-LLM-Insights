@@ -1,34 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use App\Models\Categorie;
 use Illuminate\Support\Facades\Auth;
 
 class CategorieController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         //
         $categories = Categorie::where('user_id', Auth::id())->get();
-        return view('gerercateg', compact('categories'));
+        return view('categories/index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+   
     public function store(Request $request)
     {
         //
@@ -48,20 +36,11 @@ class CategorieController extends Controller
         return redirect()->route('categories.index')->with('success', 'Catégorie ajoutée avec succès');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
+        $category = Categorie::findOrFail($id);
+        return view('categories.edit', compact('category'));
     }
 
     

@@ -57,4 +57,25 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+    public function dashboard()
+    {
+        $user = auth()->user();
+        return view('user.dashboard', compact('user'));
+    }
+
+    public function updateSalary(Request $request)
+    {
+        $request->validate([
+            'salary' => 'required|numeric',
+            'salary_credit_date' => 'required|date',
+        ]);
+
+        $user = auth()->user();
+        $user->update([
+            'salary' => $request->salary,
+            'salary_credit_date' => $request->salary_credit_date,
+        ]);
+
+        return redirect()->back()->with('success', 'Salary updated successfully.');
+    }
 }
