@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
 use App\Models\Souhait;
+use App\Http\Controllers;
 
 class SouhaitController extends Controller
 {
@@ -15,8 +15,11 @@ class SouhaitController extends Controller
             'price' => 'required|numeric',
         ]);
 
+        $user->salary_goal -= $request->price;
+        $user->save();
+
         $wishlist = new Souhait($request->all());
-        auth()->user()->wishlists()->save($wishlist);
+        $user->wishlists()->save($wishlist);
 
         return redirect()->back()->with('success', 'Item added to wishlist.');
     }

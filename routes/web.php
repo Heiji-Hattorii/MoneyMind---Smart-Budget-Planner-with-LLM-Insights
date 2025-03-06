@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SouhaitController;
@@ -38,11 +39,12 @@ Route::middleware('auth')->group(function () {
     Route::post('update-salary', [ProfileController::class, 'updateSalary']);
     Route::post('add-expense', [ExpenseController::class, 'addExpense'])->name('add-expense');
     Route::get('expenses', [ExpenseController::class, 'listExpenses'])->name('expenses');
-   // Route::get('add-wishlist', [SouhaitController::class, 'addItem'])->name('wishlist');
     Route::post('set-goal', [GoalController::class, 'setGoal'])->name('goals');
     Route::get('set-goal', [GoalController::class, 'showForm']);
 
 
+    Route::get('budget-summary', [BudgetController::class, 'getBudgetSummary'])->name('budget-summary');
+    
 
 
 Route::get('/wishlist', [SouhaitController::class, 'index'])->name('wishlist');

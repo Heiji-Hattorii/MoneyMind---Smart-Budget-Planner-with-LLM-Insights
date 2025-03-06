@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Expense;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Categorie;
-
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -18,8 +18,12 @@ class ExpenseController extends Controller
             'type' => 'required|in:recurring,one-time',
         ]);
 
+        $user = Auth::user();
+        $user->budget -= $request->amount;
+        $user->save();
+
         $expense = new Expense($request->all());
-        auth()->user()->expenses()->save($expense);
+        $user->expenses()->save($expense);
 
         return redirect()->back()->with('success', 'Expense added successfully.');
     }

@@ -26,7 +26,8 @@ class User extends Authenticatable
         'role',
         'salaire',
         'date_credit',
-        'last_activity'
+        'last_activity',
+        'budget'
     ];
     protected $hidden = [
         'password',
@@ -54,10 +55,10 @@ class User extends Authenticatable
         return $this->hasMany(Categorie::class);
     }
     public function updateLastActivity()
-{
-    $this->update(['last_activity' => now()]);
-}
-public function expenses()
+    {
+        $this->update(['last_activity' => now()]);
+    }
+    public function expenses()
     {
         return $this->hasMany(Expense::class);
     }
@@ -66,11 +67,8 @@ public function expenses()
     {
         return $this->hasMany(Souhait::class);
     }
-
     public function goals()
     {
         return $this->hasMany(Goal::class);
     }
 }
-
-

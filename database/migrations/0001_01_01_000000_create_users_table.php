@@ -23,6 +23,7 @@ return new class extends Migration
             $table->timestamp('last_activity')->nullable();
             $table->float('salaire')->nullable();   
             $table->date('date_credit')->nullable();
+            $table->float('budget')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
